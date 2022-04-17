@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="shortcut icon" href="img/Amazon_icon.ico" type="image/x-icon">
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="https://kit.fontawesome.com/41acb2f584.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue-star-rating@next/dist/VueStarRating.umd.min.js"></script>
+  <title>Amazon.com</title>
+</head>
+<body>
+  <nav class="menu" id="menu">
+    <div class="container-nav-links">
+      <div class="logo"></div>
+      <div class="btn-departments" id="btn-departments">
+        <p>All <span>Departments</span></p>
+        <i class="fas fa-caret-down"></i>
+      </div>
+      <div class="nav-bb">
+        <form>
+          <div class="nav-bb-search-wrapper">
+            <input type="text" id="nav-bb-search" autocomplete="off" />
+          </div>
+          <input type="submit" value="Go" title="Go" class="nav-bb-button" />
+        </form>
+      </div>
+      <div class="links">
+        <a href="#showH2" class="account">
+          Account
+          <div class="dropdown">
+            <h3>Account</h3>
+            <ul>
+              <li>Your Account</li>
+              <li>Your orders</li>
+              <li>Your Wish List</li>
+              <li>Your Recommendations</li>
+              <li>Your Subscribe & Saved Items</li>
+              <li>Your Prime Membership</li>
+            </ul>
+          </div>
+        </a>
+        <a href="">Today's Deals</a>
+        <a href="">Gift Cards</a>
+        <a href="">Help</a>
+      </div>
+    </div>
+  </nav>
+        <template id="stars">
+          <div class="star-box">
+            <span class="stars">
+                <span v-for="i in 5" class="star" :class="{'star-selected': isSelected(i)}" @mouseover="showText(i)" @mouseout="hideText" @click="update(i)">★</span>
+            </span>
+            <div class="hover-banner"></div>
+            <div class="banner"></div><a @click="clean">Clean</a>
+          </div>
+      </template>
+  
+      <script>
+          const Stars = {
+              template: "#stars",
+              props: ['modelValue', 'index'],
+              methods: {
+                  update(i) {
+                      this.$emit("update:modelValue", 6 - i);
+                      let hbanners = document.querySelectorAll(".hover-banner");
+                      let hbanner = hbanners[this.index];
+                      let banners = document.querySelectorAll(".banner");
+                      let banner = banners[this.index];
+                      let as = document.querySelectorAll(".banner~a");
+                      let a = as[this.index];
+                      hbanner.style.display = "none";
+                      banner.innerHTML = "<i class='fa-solid fa-check'></i> Posted publicly by YOU  |  ";
+                      banner.style.display = "inline-block";
+                      a.style.display = "inline";
+                      banner.style.color = "green";
+                  },
+                  isSelected(i) {
+                      if (this.modelValue >= 6 - i) {
+                          return true
+                      }
+                      return false
+                  },
+                  showText(i) {
+                      let hbanners = document.querySelectorAll(".hover-banner");
+                      let hbanner = hbanners[this.index];
+                      let banners = document.querySelectorAll(".banner");
+                      let banner = banners[this.index];
+                      let as = document.querySelectorAll(".banner~a");
+                      let a = as[this.index];
+                      hbanner.style.color = "black";
+                      hbanner.style.display = "inline-block";
+                      banner.style.display = "none";
+                      a.style.display = "none";
+                      if (i == 5) {
+                        hbanner.innerHTML = "I hate it";
+                      } else if (i == 4) {
+                        hbanner.innerHTML = "I don't like it";
+                      } else if (i == 3) {
+                        hbanner.innerHTML = "It's okay";
+                      } else if (i == 2) {
+                        hbanner.innerHTML = "I like it";
+                      } else if (i == 1) {
+                        hbanner.innerHTML = "I love it";
+                      }
+                  },
+                  hideText() {
+                      let hbanners = document.querySelectorAll(".hover-banner");
+                      let hbanner = hbanners[this.index];
+                      let banners = document.querySelectorAll(".banner");
+                      let banner = banners[this.index];
+                      hbanner.style.display = "none";
+                  },
+                  clean() {
+                      this.$emit("update:modelValue", 0);
+                      let banners = document.querySelectorAll(".banner");
+                      let banner = banners[this.index];
+                      let as = document.querySelectorAll(".banner~a");
+                      let a = as[this.index];
+                      banner.style.display = "none";
+                      a.style.display = "none";
+                  }
+              }
+          }
+      </script>
+  
+      <template id="Window">
+          <div class="showImg">
+              <img :src="item.imgSrc" alt="">
+          </div>
+          <div class="showInfo">
+              <div class="title">{{item.title}}</div>
+              <div class="name">{{item.name}}</div>
+              <div @click="changed(index)">
+                <Stars v-model="zero" :index="index"></Stars>
+              </div>
+              <div class="review">
+                <textarea class="txt" cols="70" rows="2" placeholder="Write your review here" v-model="msg" @keydown.enter.prevent="submit(index)"></textarea>
+                <button class="btn" @click="submit(index)">Submit</button>
+              </div>
+              <div class="msg">
+                  {{msg}}
+                  <a @click="changed(index)">Change</a>
+                  <a @click="clean(index)">Delete</a>
+                </div>
+          </div>
+          <hr>
+      </template>
+  
+      <script>
+          const Window = {
+              template: "#Window",
+              props: ['item', 'index'],
+              data () {
+                  return {
+                      zero: 0,
+                      msg: ''
+                  }
+              },
+              methods: {
+                  changed(index) {
+                    let revs = document.querySelectorAll(".review");
+                    let msgs = document.querySelectorAll(".msg");
+                    revs[index].classList.add("show");
+                    msgs[index].classList.remove("show");
+                  },
+                  submit(index) {
+                    let revs = document.querySelectorAll(".review");
+                    let msgs = document.querySelectorAll(".msg");
+                    revs[index].classList.remove("show");
+                    if (this.msg !== '') {
+                        msgs[index].classList.add("show");
+                    }
+                  },
+                  clean(index) {
+                    this.msg = '';
+                    let msgs = document.querySelectorAll(".msg");
+                    msgs[index].classList.remove("show");
+                  }
+              },
+              components: {
+                  'Stars': Stars
+              }
+          }
+      </script>
+
+<template id="Grid">
+    <div class="grid-div">
+        <div class="upImg">
+            <img :src="product.imgSrc" alt="">
+        </div>
+        <div class="downInfo">
+            <span class="hot1">${{ formatPrice((product.original_price - product.present_price).toFixed(0)) }} off</span>
+            <span class="hot2">On deal</span>
+            <div class="price-line">
+                <span class="price0">$</span>
+                <span class="price1">{{formatPrice(product.present_price)}}</span>
+            </div>
+            <div class="price2">List Price: <span STYLE="text-decoration:line-through">${{formatPrice(product.original_price)}}</span> {{ ((product.original_price - product.present_price) / product.original_price * 100).toFixed(0) }}% off</div>
+            <div class="span-title">{{product.title}}</div>
+            <div class="review-times">
+                <star-rating :rating="product.rating" :star-size="14" :show-rating="false" :read-only="true" :increment="0.01"></star-rating>
+                <span class="times">{{formatPrice(product.reviews)}}</span>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    const Grid = {
+        template: "#Grid",
+        props: ['product'],
+        data () {
+            return {
+            }
+        },
+        methods: {
+          formatPrice(num) {
+            return num.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+          }
+        }
+    }
+</script>
+<div id="app">
+  <main class="container">
+    <article id="showPage">
+        <h2>Top picks for you</h2>
+        <div class="wrapper">
+          <Grid v-for="product in products" :product="product"></Grid>
+          <h2 id="showH2"></h2>
+        </div>
+    </article>
+    <article id="orderPage">
+        <h2>Your Reviews</h2>
+        <hr>
+        <Window v-for="item, index in items" :item="item" :index="index"></Window>
+    </article>
+  </main>
+</div>
+
+<script>
+  const app = Vue.createApp({
+      data () {
+          return {
+              items: [
+                  {
+                      title: "Apple iPhone 12 Pro, 128GB, Graphite - Unlocked (Renewed Premium)",
+                      imgSrc: "img/10.jpg",
+                      name: "phone"
+                  },
+                  {
+                      title: "2021 Apple 12.9-inch iPad Pro Wi-Fi + Cellular 128GB - Space Gray",
+                      imgSrc: "img/11.jpg",
+                      name: "pad"
+                  },
+                  {
+                      title: "(Renewed) Apple Airpods Wireless Bluetooth In-Ear Headset w/ Charging Case MMEF2AM/A",
+                      imgSrc: "img/12.jpg",
+                      name: "headphone"
+                  },
+                  {
+                      title: "Organic Probiotics 100 Billion CFU, Dr Formulated Probiotics for Women",
+                      imgSrc: "img/13.jpg",
+                      name: "health"
+                  },
+                  {
+                      title: "USB C Fast Charger, Sacrack 90W 6 Port USB C Charging Station",
+                      imgSrc: "img/14.jpg",
+                      name: "device"
+                  },
+                  {
+                      title: "EVGA GeForce RTX 3080 12GB FTW3 Ultra Gaming, 12G-P5-4877-KL, 12GB GDDR6X",
+                      imgSrc: "img/04.jpg",
+                      name: "device"
+                  }
+              ],
+              products: [
+                  {
+                      title: "Apple iPhone 12 Pro, 128GB, Graphite - Unlocked (Renewed Premium)",
+                      imgSrc: "img/10.jpg",
+                      present_price: 799.99,
+                      original_price: 949.99,
+                      reviews: 4,
+                      rating: 5
+                  },
+                  {
+                      title: "2021 Apple 12.9-inch iPad Pro Wi-Fi + Cellular 128GB - Space Gray",
+                      imgSrc: "img/11.jpg",
+                      present_price: 699.99,
+                      original_price: 799.99,
+                      reviews: 3971,
+                      rating: 4.8
+                  },
+                  {
+                      title: "(Renewed) Apple Airpods Wireless Bluetooth In-Ear Headset w/ Charging Case MMEF2AM/A",
+                      imgSrc: "img/12.jpg",
+                      present_price: 107.68,
+                      original_price: 129.99,
+                      reviews: 2853,
+                      rating: 4.5
+                  },
+                  {
+                      title: "Organic Probiotics 100 Billion CFU, Dr Formulated Probiotics for Women",
+                      imgSrc: "img/13.jpg",
+                      present_price: 21.25,
+                      original_price: 33.99,
+                      reviews: 20792,
+                      rating: 4.5
+                  },
+                  {
+                      title: "USB C Fast Charger, Sacrack 90W 6 Port USB C Charging Station",
+                      imgSrc: "img/14.jpg",
+                      present_price: 42.49,
+                      original_price: 69.99,
+                      reviews: 484,
+                      rating: 4.7
+                  },
+                  {
+                      title: "Drop Stop - The Original Patented Car Seat Gap Filler (AS SEEN ON Shark Tank)",
+                      imgSrc: "img/03.jpg",
+                      present_price: 19.99,
+                      original_price: 24.99,
+                      reviews: 45451,
+                      rating: 4.6
+                  },
+                  {
+                      title: "EVGA GeForce RTX 3080 12GB FTW3 Ultra Gaming, 12G-P5-4877-KL, 12GB GDDR6X",
+                      imgSrc: "img/04.jpg",
+                      present_price: 999.99,
+                      original_price: 1299.99,
+                      reviews: 13,
+                      rating: 3.8
+                  },
+                  {
+                      title: "Reathlete Leg Massager, Air Compression for Circulation Calf Feet Thigh Massage",
+                      imgSrc: "img/02.jpg",
+                      present_price: 94.99,
+                      original_price: 199.95,
+                      reviews: 3096,
+                      rating: 4
+                  },
+                  {
+                      title: "Rove R2-4K Dash Cam Built in WiFi GPS Car Dashboard Camera Recorder",
+                      imgSrc: "img/01.jpg",
+                      present_price: 81.59,
+                      original_price: 119.99,
+                      reviews: 20516,
+                      rating: 4.5
+                  }
+              ]
+          }
+      },
+      components: {
+          'Grid': Grid,
+          'Window': Window
+      }
+  });
+  app.component('star-rating', VueStarRating.default);
+  app.mount("#app");
+</script>
+
+  <script src="https://kit.fontawesome.com/eea5dcc8ef.js" crossorigin="anonymous"></script>
+</body>
+</html>

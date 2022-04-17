@@ -1,0 +1,548 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #EAEDED;
+  font-family: Arial, sans-serif;
+  width: 1280px;
+}
+
+@media screen and (max-width:1280px) {
+  .body{
+    width:100%;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+main article {
+  background: #FFF;
+  height: 1200px;
+  height: 100%;
+}
+
+main article#showPage {
+  padding: 20px;
+  width: 100%;
+  padding-top: 76px;
+}
+
+#showPage h2 {
+  margin-bottom: 20px;
+}
+
+.wrapper {
+  margin: 0 auto;
+  width: 1080px;
+}
+
+#orderPage {
+  padding: 30px 40px;
+  width: 90%;
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+/** --------------------
+    NAV AND NAV-LINKS
+  -------------------- **/
+  
+.menu {
+  background: #232F3E;
+  padding: 5px 0;
+}
+
+.logo {
+  width: 110px;
+  height: 35px;
+  padding: 10px;
+  background-image: url("https://images-na.ssl-images-amazon.com/images/G/01/gno/images/general/backup-logo_blue_2x._CB481604563_.png"); 
+  background-size: 110px 35px;
+  cursor: pointer;
+}
+
+.menu .container-nav-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu .btn-departments {
+  color: #FFF;
+  padding: 7px;
+  border-radius: 3px;
+  display: flex;
+  align-items: flex-end;
+  border: 1px solid transparent;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.menu .btn-departments i {
+  margin-left: 20px;
+  position: relative;
+  bottom: 3px;
+}
+
+.menu .btn-departments:hover {
+  border: 1px solid rgba(255,255,255, .4);
+}
+
+.menu .btn-departments span {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.menu .container-nav-links .links a {
+  color: #CCC;
+  border: 1px solid transparent;
+  padding: 7px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.menu .container-nav-links .links a:hover {
+  border: 1px solid rgba(255,255,255, .4);
+}
+
+/** --------------------
+    MEDIAQUERIES
+-------------------- **/
+
+  .menu .container-nav-links {
+    padding: 0 10px;
+  }
+
+  .menu .container {
+    width: 100%;
+  }
+
+/**nav-search**/
+
+.nav-bb {
+  position: static;
+  float: none;
+  height: 45px;
+  width: 650px;
+  background: #232F3E;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+}
+
+.nav-bb form {
+  display: flex;
+  flex: 1 36px;
+  position: relative;
+  float: none;
+  max-width: 100%;
+  height: 31px;
+  margin: 7px 0;
+}
+
+.nav-bb-search-wrapper {
+  display: block;
+  position: relative;
+  float: none;
+  top: 0;
+  left: 0;
+  height: 31px;
+  width: 100%;
+  padding: 0;
+  border-radius: 3px 0 0 3px;
+  background: #fff;
+}
+
+#nav-bb-search, #nav-bb-search:focus {
+  margin: 7px 0 0;
+  width: 100%;
+  height: 16px;
+  padding: 0px 0px 0px 7px;
+  border: 0px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  outline: none 0;
+  box-shadow: none;
+}
+
+.nav-bb-button {
+  display: block;
+  position: relative;
+  float: none;
+  height: 31px;
+  margin: 0;
+  border: none;
+  background: #FEBD69;
+  color: #232F3E;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 0 9px;
+  cursor: pointer;
+  border-radius: 0 3px 3px 0;
+  outline: none 0;
+}
+
+.nav-bb-button:hover {
+  background: #F3A847;
+}
+
+/**Account Dropdown**/
+
+.account {
+  position: relative;
+}
+
+.dropdown {
+  width: 250px;
+  background-color: #fff;
+  position: absolute;
+  display: none;
+  border-radius: 3px;
+  top: 100%;
+  left: -92px;
+  color: #232F3E;
+  font-size: 14px;
+  cursor: default;
+  border: 0.25px solid #CCC;
+}
+
+.dropdown li {
+  list-style: none;
+  padding: 0;
+  margin: 10px;
+  text-align: left;
+}
+
+.dropdown::before {
+  content: '';
+  width: 0px;
+  height: 0px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #fff;
+  position: absolute;
+  top: -5px;
+  left: 117px;
+}
+
+.dropdown h3 {
+  font-size: 18px;
+  color: #232F3E;
+  margin: 10px;
+}
+
+.dropdown ul {
+  margin: 0;
+  padding: 0;
+}
+
+li:hover {
+  color: #f57c2c;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.account:hover .dropdown {
+  display: block;
+}
+
+/* main article CSS */
+
+.stars {
+  display: inline-block;
+  height: 50px;
+}
+
+.star {
+  color: gainsboro;
+  cursor: pointer;
+  float: right;
+  font-size: 50px;
+}
+
+.star:hover,
+.star:hover~.star {
+  color: rgba(0, 0, 255, 0.6);
+}
+.star-selected {
+  color: rgb(255, 202, 12);
+}
+
+.star-box {
+  height: 55px;
+}
+
+.banner, .hover-banner, .banner~a {
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  top: -5px;
+  left: 15px;
+}
+
+.banner~a {
+  margin: 10px;
+  color: #2900e0;
+  cursor: pointer;
+}
+
+.banner~a:hover {
+  text-decoration: underline;
+}
+
+.banner, .banner~a {
+  display: none;
+}
+
+.title {
+  text-decoration: none;
+  font-size: 18px;
+  color: rgb(0, 65, 204);
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.title:hover {
+  text-decoration: underline;
+}
+
+.name {
+  cursor: default;
+  color: #666;
+}
+
+.showImg {
+  width: 100px;
+  height: 100px;
+  float: left;
+}
+
+.showInfo {
+  max-width: 840px;
+  height: 100%;
+  margin-left: 120px;
+}
+
+.showImg > img {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+hr {
+  margin: 30px auto;
+  border: 0.1px solid rgba(204, 204, 204, 0.6);
+}
+
+textarea {
+  margin: 10px 0;
+  display: block;
+  padding: 5px;
+  border: 0.5px solid #ccc;
+  border-radius: 5px;
+}
+
+textarea:focus {
+  outline: rgb(255, 168, 69) solid 1.5px;
+}
+
+button {
+  background-image: linear-gradient(#f7f8fa ,#e7e9ec);
+  border-color: #adb1b8 #a2a6ac #8d9096;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3px;
+  box-shadow: rgba(255,255,255,.6) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #0f1111;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Amazon Ember",Arial,sans-serif;
+  font-size: 14px;
+  height: 29px;
+  font-size: 13px;
+  outline: 0;
+  overflow: hidden;
+  padding: 0 11px;
+  text-align: center;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+button:active {
+  border-bottom-color: #a2a6ac;
+}
+
+button:active:hover {
+  border-bottom-color: #a2a6ac;
+}
+
+button:hover {
+  border-color: #a2a6ac #979aa1 #82858a;
+}
+
+button:focus {
+  border-color: #e77600;
+  box-shadow: rgba(228, 121, 17, .5) 0 0 3px 2px;
+  outline: 0;
+}
+
+.btn {
+  display: block;
+  position: relative;
+  left: 90%;
+}
+
+.msg {
+  background-color: rgba(255, 235, 154, 0.7);
+  margin: 10px 0;
+  padding: 7px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.msg::before {
+  content: 'Your Review: ';
+  font-weight: bold;
+  color: #e77600;
+}
+
+.msg > a {
+  text-decoration: underline;
+  color: #2900e0;
+  cursor: pointer;
+  margin-left: 5px;
+  display: none;
+}
+
+.msg:hover > a {
+  display: inline;
+}
+
+.review, .msg {
+  width: 520px;
+}
+
+.review, .msg {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+/* Grid-div CSS */
+
+.grid-div {
+  width: 360px;
+  height: 390px;
+  padding: 20px 20px 10px;
+  border: 0.5px solid rgba(204, 204, 204, 0.5);
+  display: inline-block;
+}
+
+.upImg {
+  width: 320px;
+  height: 226px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.upImg > img {
+  max-width: 320px;
+  max-height: 226px;
+  cursor: pointer;
+}
+
+.downInfo {
+  width: 100%;
+  height: 126px;
+}
+
+.hot1 {
+  padding: 4px 6px;
+  background-color: rgb(204, 12, 57);
+  color: #fff;
+  font-size: 12.5px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  border-radius: 2px;
+}
+
+.hot2 {
+  padding: 4px 3px;
+  background-color: #fff;
+  color: rgb(204, 12, 57);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.price-line {
+  margin: 7px 0 2px;
+}
+
+.price0 {
+  font-size: 11px;
+  color: #0F1111;
+  position: relative;
+  top: -5px;
+}
+
+.price1 {
+  color: #0F1111;
+  font-size: 18px;
+}
+
+.price2 {
+  color: #565959;
+  font-size: 12px;
+}
+
+.span-title {
+  font-size: 15px;
+  margin: 3px 0;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.span-title:hover {
+  color: #da671a;
+}
+
+review-times {
+  font-size: 12px;
+  margin: 3px 0;
+}
+
+.times {
+  font-size: 12px;
+  float: left;
+  position: relative;
+  top: -16.5px;
+  left: 75px;
+}
